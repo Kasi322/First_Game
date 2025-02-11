@@ -3,50 +3,80 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    private Rigidbody2D rb2d;
-    private Vector2 _input;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    private Player_Animation _anim;
-    public float jumpForce = 10f;
-    public Transform groundCheck; // Точка проверки земли
-    public LayerMask groundLayer; // Слой земли
-    private bool _isGrounded;
+    private Rigidbody2D _rb2d;
+    private float _horizontalMovement = 0f;
+    private bool _facingRight = true; 
+    private Player_Animation player_animation;
+    
+    
+    [Header("Player Movement")]
+    [Range(0f, 1f)] public float speed = 1f;
+    [Range(0, 15f)] public float jumpSpeed = 8f;
+    [Range (1, 10)] public int jumpCountMax = 2;
+    private int jumpCount;
 
+     Animator animator;
+    
+     [Space]
+    [Header("Ground Check")]
+    public bool grounded = false;
+    [Range(0f, 5f)] public float groundCheckRadius = 0.3f;
+    [Range(-5f, 5f)] public float groundCheckOfSetY = -1.8f;
     private void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-        _anim = GetComponentInChildren<Player_Animation>();
+       _rb2d = GetComponent<Rigidbody2D>();
+       player_animation = GetComponentInChildren<Player_Animation>();
     }
 
     private void Update()
     {
-        // Получаем горизонтальный ввод
-        _input = new Vector2(Input.GetAxis("Horizontal"), 0);
-
-        // Зеркальный поворот спрайта
-        if (_input.x != 0)
-        {
-            spriteRenderer.flipX = _input.x < 0;
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
-
-        // Устанавливаем состояние движения
-        _anim.ismoving = Mathf.Abs(_input.x) > 0.1f;
+       if (grounded && Input.GetKeyDown(KeyCode.Space))
+       {
+          jumpCount = 0;
+          _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
+       } else if (jumpCount < jumpCountMax && Input.GetKeyDown(KeyCode.Space))
+       {
+          jumpCount++;
+          _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
+       }
+       _horizontalMovement = Input.GetAxis("Horizontal") * speed;
+        player_animation.ismoving = Math.Abs(_horizontalMovement);
+        player_animation.isGrounded = !grounded;
+       if (_horizontalMovement > 0 && !_facingRight)
+       {
+          Flip();
+       } else if (_horizontalMovement < 0 && _facingRight)
+       {
+          Flip();
+       }
     }
 
     private void FixedUpdate()
     {
-        // Двигаем персонажа через физику
-        rb2d.linearVelocity = new Vector2(_input.x * moveSpeed, rb2d.linearVelocity.y);
+       Vector2 targetVelocity = new Vector2((_horizontalMovement * 10f), _rb2d.linearVelocity.y);
+       _rb2d.linearVelocity = targetVelocity;
+       CheckGround();
+       
     }
-    [Obsolete("Obsolete")]
-    private void Jump()
+
+    private void Flip()
     {
-        rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+       _facingRight = !_facingRight;
+       Vector3 theScale = transform.localScale;
+       theScale.x *= -1;
+       transform.localScale = theScale;
+    }
+
+    private void CheckGround()
+    {
+       Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y + groundCheckOfSetY), groundCheckRadius);
+       if (colliders.Length > 1)
+       {
+          grounded = true;
+       }
+       else
+       {
+          grounded = false;
+       }
     }
 }

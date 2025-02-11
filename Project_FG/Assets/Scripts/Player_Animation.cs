@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Player_Animation : MonoBehaviour
 {
-    private static readonly int IsMoving = Animator.StringToHash("isMoving");
-    private Animator _anim;
-    public bool ismoving { private get; set; }
+    
+    public Animator _anim;
+    public float ismoving { private get; set; }
+    public bool isGrounded { private get; set; }
 
     private void Start()
     {
@@ -13,6 +14,13 @@ public class Player_Animation : MonoBehaviour
 
     private void Update()
     {
-        _anim.SetBool(IsMoving, ismoving);
+        _anim.SetFloat("isMoving", Mathf.Abs(ismoving));
+        if (isGrounded == true)
+        {
+            _anim.SetBool("isJumping", true);
+        } else if (isGrounded == false)
+        {
+            _anim.SetBool("isJumping", false);
+        }
     }
 }

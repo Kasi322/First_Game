@@ -30282,7 +30282,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.69
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -30304,7 +30304,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c5540cd2ede21754ca718e6e78d9c42b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -30343,13 +30343,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b341916a0b31cfc4db6963aee24e69a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  spriteRenderer: {fileID: 1249548683}
-  jumpForce: 1000
-  groundCheck: {fileID: 1249548684}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  speed: 0.625
+  jumpSpeed: 7.6
+  jumpCountMax: 10
+  grounded: 0
+  groundCheckRadius: 0.24
+  groundCheckOfSetY: -1.6
 --- !u!114 &1249548688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30362,6 +30361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4aa7e4be58435140abf297dcd4a5bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anim: {fileID: 1249548682}
 --- !u!114 &1297547789
 MonoBehaviour:
   m_ObjectHideFlags: 0
