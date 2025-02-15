@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
        {
           jumpCount = 0;
           _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
-       } else if (jumpCount < jumpCountMax && Input.GetKeyDown(KeyCode.Space))
+       } else if ((jumpCount < jumpCountMax) && Input.GetKeyDown(KeyCode.Space))
        {
           jumpCount++;
           _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
