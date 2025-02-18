@@ -30292,7 +30292,7 @@ Transform:
   m_GameObject: {fileID: 1249548681}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.28, y: 9.79, z: 0}
+  m_LocalPosition: {x: -7.8, y: 9.79, z: 0}
   m_LocalScale: {x: 1.6452, y: 1.6452, z: 1.6452}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38096,6 +38096,7 @@ GameObject:
   - component: {fileID: 1542597706}
   - component: {fileID: 1542597705}
   - component: {fileID: 1542597708}
+  - component: {fileID: 1542597709}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -38221,6 +38222,34 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1542597709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542597704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a8b6e14317bf54c93dfb007695f577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1249548684}
+  dampTime: 0.6
+  followType: -1
+  cameraCenterX: 0.5
+  cameraCenterY: 0.5
+  boundType: -1
+  leftBound: -10.29
+  rightBound: 99.5
+  upperBound: 18.6
+  lowerBound: 0
+  deadZoneType: -1
+  hardDeadZone: 1
+  leftDeadBound: 0.4
+  rightDeadBound: 0.4
+  upperDeadBound: 1
+  lowerDeadBound: 1
 --- !u!114 &1624871154
 MonoBehaviour:
   m_ObjectHideFlags: 0

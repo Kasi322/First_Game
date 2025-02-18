@@ -34,11 +34,7 @@ public class Player : MonoBehaviour
        {
           jumpCount = 0;
           _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
-       } else if ((jumpCount < jumpCountMax) && Input.GetKeyDown(KeyCode.Space))
-       {
-          jumpCount++;
-          _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
-       }
+       } 
        _horizontalMovement = Input.GetAxis("Horizontal") * speed;
         player_animation.ismoving = Math.Abs(_horizontalMovement);
         player_animation.isGrounded = !grounded;
