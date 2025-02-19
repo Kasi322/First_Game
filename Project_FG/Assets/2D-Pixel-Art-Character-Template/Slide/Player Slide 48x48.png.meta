@@ -67,7 +67,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -81,7 +81,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,7 +105,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -147,9 +147,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 7
-        width: 39
-        height: 13
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,10 +168,10 @@ TextureImporter:
       name: Player Slide 48x48_1
       rect:
         serializedVersion: 2
-        x: 11
-        y: 19
-        width: 10
-        height: 10
+        x: 48
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,10 +190,10 @@ TextureImporter:
       name: Player Slide 48x48_2
       rect:
         serializedVersion: 2
-        x: 49
-        y: 7
-        width: 38
-        height: 21
+        x: 96
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -212,10 +212,10 @@ TextureImporter:
       name: Player Slide 48x48_3
       rect:
         serializedVersion: 2
-        x: 97
-        y: 7
-        width: 38
-        height: 12
+        x: 144
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,10 +234,10 @@ TextureImporter:
       name: Player Slide 48x48_4
       rect:
         serializedVersion: 2
-        x: 107
-        y: 18
-        width: 10
-        height: 10
+        x: 192
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,10 +256,10 @@ TextureImporter:
       name: Player Slide 48x48_5
       rect:
         serializedVersion: 2
-        x: 145
-        y: 7
-        width: 38
-        height: 20
+        x: 240
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,10 +278,10 @@ TextureImporter:
       name: Player Slide 48x48_6
       rect:
         serializedVersion: 2
-        x: 194
-        y: 7
-        width: 37
-        height: 20
+        x: 288
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +300,10 @@ TextureImporter:
       name: Player Slide 48x48_7
       rect:
         serializedVersion: 2
-        x: 241
-        y: 7
-        width: 38
-        height: 21
+        x: 336
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -318,77 +318,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Player Slide 48x48_8
-      rect:
-        serializedVersion: 2
-        x: 289
-        y: 7
-        width: 38
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: eb60eb72e05f2af20800000000000000
-      internalID: 3432575307154851518
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Slide 48x48_9
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 7
-        width: 39
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7cea24f630b10f020800000000000000
-      internalID: 2373426705189744327
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Slide 48x48_10
-      rect:
-        serializedVersion: 2
-        x: 347
-        y: 19
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c08de9eca006453a0800000000000000
-      internalID: -6677606747951146996
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9f07b92dd63e83f40bb1ee62d72f30d6
     internalID: 0
     vertices: []
     indices: 
@@ -397,7 +331,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Player Slide 48x48_0: -5894328622698030978
+      Player Slide 48x48_1: -5299466595736483745
+      Player Slide 48x48_2: 1333098324560746049
+      Player Slide 48x48_3: -4527066608579262305
+      Player Slide 48x48_4: -8231523880869386447
+      Player Slide 48x48_5: -4277509470484915478
+      Player Slide 48x48_6: -845729933226878291
+      Player Slide 48x48_7: 1586465145681589053
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -30,11 +31,23 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+       if (Input.GetKeyDown(KeyCode.Escape))
+       {
+          SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+       }
        if (grounded && Input.GetKeyDown(KeyCode.Space))
        {
           jumpCount = 0;
           _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
-       } 
+       } /*else if ((jumpCount < jumpCountMax) && Input.GetKeyDown(KeyCode.Space))
+       {
+          jumpCount++;
+          _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
+       }
+       if (grounded)
+       {
+          jumpCount = 0;
+       }*/
        _horizontalMovement = Input.GetAxis("Horizontal") * speed;
         player_animation.ismoving = Math.Abs(_horizontalMovement);
         player_animation.isGrounded = !grounded;
@@ -54,6 +67,7 @@ public class Player : MonoBehaviour
        CheckGround();
        
     }
+    
 
     private void Flip()
     {
