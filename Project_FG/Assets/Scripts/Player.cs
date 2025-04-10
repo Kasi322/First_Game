@@ -8,19 +8,24 @@ public class Player : MonoBehaviour
     private float _horizontalMovement = 0f;
     private bool _facingRight = true; 
     private Player_Animation player_animation;
+    public float coyoteTime = 0.2f; // Время "прощения" после ухода с платформы
+    private float coyoteTimeCounter;
+    private bool isJumpingNow = false;
     
-    
+    [Header("Player health")]
     [Header("Player Movement")]
     [Range(0f, 1f)] public float speed = 1f;
-    [Range(0, 15f)] public float jumpSpeed = 8f;
-    [Range (1, 10)] public int jumpCountMax = 2;
-    private int jumpCount;
+    private bool jumpControl;
+    private int jumpIteration = 0;
+    public float jumpForce = 210f;
+    public int jumpValueIteration = 60;
 
      Animator animator;
     
      [Space]
     [Header("Ground Check")]
     public bool grounded = false;
+    public bool isOnRealGround {get; private set;} = false;
     [Range(0f, 5f)] public float groundCheckRadius = 0.3f;
     [Range(-5f, 5f)] public float groundCheckOfSetY = -1.8f;
     private void Start()
@@ -31,23 +36,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+       Jump();
        if (Input.GetKeyDown(KeyCode.Escape))
        {
           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
        }
-       if (grounded && Input.GetKeyDown(KeyCode.Space))
-       {
-          jumpCount = 0;
-          _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
-       } /*else if ((jumpCount < jumpCountMax) && Input.GetKeyDown(KeyCode.Space))
-       {
-          jumpCount++;
-          _rb2d.AddForce(transform.up * jumpSpeed, ForceMode2D.Impulse);
-       }
-       if (grounded)
-       {
-          jumpCount = 0;
-       }*/
        _horizontalMovement = Input.GetAxis("Horizontal") * speed;
         player_animation.ismoving = Math.Abs(_horizontalMovement);
         player_animation.isGrounded = !grounded;
@@ -76,17 +69,70 @@ public class Player : MonoBehaviour
        theScale.x *= -1;
        transform.localScale = theScale;
     }
-
     private void CheckGround()
     {
-       Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y + groundCheckOfSetY), groundCheckRadius);
+       // Выполняем проверку
+       Collider2D[] colliders = Physics2D.OverlapCircleAll(
+          new Vector2(transform.position.x, transform.position.y + groundCheckOfSetY), 
+          groundCheckRadius
+       );
+
+       // Если пересекается несколько коллайдеров (игнорируем себя)
        if (colliders.Length > 1)
        {
           grounded = true;
+          isOnRealGround = true;
+          coyoteTimeCounter = coyoteTime;
        }
        else
        {
-          grounded = false;
+          isOnRealGround = false;
+
+          if (!isJumpingNow && coyoteTimeCounter > 0)
+          {
+             coyoteTimeCounter -= Time.deltaTime;
+             grounded = true;  // Разрешаем прыжок благодаря coyote time
+          }
+          else
+          {
+             grounded = false;
+          }
        }
     }
+
+
+    private void OnDrawGizmosSelected()
+    {
+       Gizmos.color = Color.green;
+       Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y + groundCheckOfSetY), groundCheckRadius);
+    }
+    void Jump()
+    {
+       if (Input.GetKeyDown(KeyCode.W) && grounded)
+       {
+          jumpControl = true; // начинаем прыжок
+          isJumpingNow = true; // прыгнули только что
+       }
+
+       if (Input.GetKeyUp(KeyCode.W))
+       {
+          jumpControl = false; // отпустили кнопку — прыжок заканчивается
+          jumpIteration = 0;   // сброс итераций
+       }
+
+       if (jumpControl)
+       {
+          if (jumpIteration++ < jumpValueIteration)
+          {
+             _rb2d.AddForce(Vector2.up * jumpForce / jumpIteration);
+          }
+          else
+          {
+             jumpControl = false; // лимит прыжка исчерпан
+             jumpIteration = 0;
+          }
+       }
+    }
+
+
 }

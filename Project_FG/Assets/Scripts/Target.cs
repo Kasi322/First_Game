@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    public float health = 100f;
+    public float currentHealth = 100f;
+    public Animator animator;
     private Rigidbody2D _rb2d;
     private bool _facingRight = true;
     private float _targetPosition;
+    private bool isDead = false;
     
     [Header("Movement Settings")]
     [Range(1f, 10f)] public float speed = 2f;
@@ -39,12 +43,10 @@ public class Target : MonoBehaviour
             Flip();
         }
     }
-
     private void ChooseNewTargetPosition()
     {
         _targetPosition = _startPosition.x + Random.Range(-moveRange, moveRange);
     }
-
     private void Flip()
     {
         _facingRight = !_facingRight;
@@ -52,4 +54,47 @@ public class Target : MonoBehaviour
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+
+    public void TakeDamage(float damage)
+    {
+        animator.SetTrigger("isHit");
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    void Die()
+    {
+        if (isDead) return;
+
+        isDead = true;
+
+        animator.SetTrigger("isDead");
+        this.enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        GetComponent<Rigidbody2D>().simulated = false;
+        Destroy(gameObject, 2f); 
+        
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        // Если игра запущена и стартовая позиция уже задана
+        if (_startPosition != Vector2.zero)
+        {
+            Gizmos.DrawWireSphere(_startPosition, moveRange);
+        }
+        else
+        {
+            // Пока игра не запущена — рисуем вокруг текущей позиции
+            Gizmos.DrawWireSphere(transform.position, moveRange);
+        }
+    }
+
+
 }
