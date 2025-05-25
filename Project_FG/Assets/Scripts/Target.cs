@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Target : MonoBehaviour
+public class Target : MonoBehaviour, IDamageable
 {
-    public float health = 100f;
-    public float currentHealth = 100f;
+    [FormerlySerializedAs("health")] 
+    public float maxHealth = 100f;
+    public float currentHealth;
     public Animator animator;
     private Rigidbody2D _rb2d;
     private bool _facingRight = true;
@@ -21,6 +23,7 @@ public class Target : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         _startPosition = transform.position;
         ChooseNewTargetPosition();
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -55,7 +58,7 @@ public class Target : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    public void TakeDamage(float damage)
+    public void takeDamage(float damage)
     {
         animator.SetTrigger("isHit");
         currentHealth -= damage;

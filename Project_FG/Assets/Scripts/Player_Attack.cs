@@ -5,6 +5,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Animator animator;
     [SerializeField] private Transform attackPoint;
+    private PlayerHealth playerHealth;
 
     [Header("Attack Settings")]
     [SerializeField, Range(0f, 15f)] private float attackRange = 0.5f;
@@ -13,14 +14,15 @@ public class PlayerAttack : MonoBehaviour
     [Range(0f, 20f)] public float attackRate = 2f;
     [Range(0f, 20f)] public float nextAttackTime = 2f;
 
-    private static readonly int PunchTrigger = Animator.StringToHash("isPunch");
-
     private void Start()
     {
+        animator = GetComponentInChildren<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update()
-    {
+    { 
+        if (playerHealth.isDead) return; 
         if (Time.time >= nextAttackTime)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -34,11 +36,15 @@ public class PlayerAttack : MonoBehaviour
 
     private void attack()
     {
-        animator.SetTrigger(PunchTrigger);
+        animator.SetTrigger("isPunch");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayerMask);
         foreach (var enemy in hitEnemies)
         {
-            enemy.GetComponent<Target>().TakeDamage(atk);
+            var t = enemy.GetComponent<Target>();
+            if (t != null)
+                t.takeDamage(atk);
+            else
+                Debug.LogWarning($"У {enemy.name} нет компонента Target!");
         }
 
     }
